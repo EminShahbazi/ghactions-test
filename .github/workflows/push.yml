@@ -1,0 +1,39 @@
+name: Push
+
+on: push
+
+jobs:
+  somejob:
+    name: Test Job
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: "main"
+          token: ${{ github.token }}
+
+      - name: Prepare Commit Config
+        run: |
+          git config --global user.email "vittorio.morganti@mytheresa.com"
+          git config --global user.name "GitHub Action"
+
+      - name: Set git info
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: Modify README.md
+        uses: jaywcjlove/github-action-modify-file-content@main
+        with:
+          path: README.md
+          body: "{{date:YYYY-MM-DD HH:mm:ss}}"
+          token: ${{ github.token }}
+
+      - name: Push
+        uses: ad-m/github-push-action@master
+        with:
+          branch: main
+          tags: true
+          github_token: ${{ github.token }}
