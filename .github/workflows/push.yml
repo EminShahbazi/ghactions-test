@@ -14,11 +14,6 @@ jobs:
           ref: "main"
           token: ${{ github.token }}
 
-      - name: Prepare Commit Config
-        run: |
-          git config --global user.email "vittorio.morganti@mytheresa.com"
-          git config --global user.name "GitHub Action"
-
       - name: Set git info
         run: |
           git config --global user.name "${{ github.actor }}"
