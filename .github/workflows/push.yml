@@ -24,6 +24,7 @@ jobs:
         with:
           path: README.md
           body: "{{date:YYYY-MM-DD HH:mm:ss}}"
+          message: update readme file
           token: ${{ github.token }}
 
       - name: Push
